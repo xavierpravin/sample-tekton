@@ -14,6 +14,10 @@ spec:
       type: string
     - name: SUBSCRIPTION_ID
       type: string  
+    - name: subdirectory
+      type: string  
+    - name: azure_spn_name
+      type: string  
       
   tasks:
   - name: terraform-primary
@@ -26,6 +30,10 @@ spec:
         value: $(params.tf_action)
       - name: SUBSCRIPTION_ID
         value: $(params.SUBSCRIPTION_ID)
+      - name: subdirectory
+        value: $(params.subdirectory)
+      - name: azure_spn_name
+        value: $(params.azure_spn_name)
     workspaces:
       - name: task-ws
         workspace: pipeline-ws
