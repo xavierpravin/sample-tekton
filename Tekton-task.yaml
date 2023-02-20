@@ -16,6 +16,9 @@ spec:
       type: string
     - name: SUBSCRIPTION_ID
       type: string
+    - name: subdirectory
+      type: string 
+      
     
   steps:
     - name: test-job-clone
