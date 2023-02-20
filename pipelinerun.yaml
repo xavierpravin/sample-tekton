@@ -11,9 +11,10 @@ spec:
 
     - name: github_url
       value: "https://github.com/xavierpravin/terraform-sample.git"
-    
     - name: tf_action
       value: plan
+    - name: SUBSCRIPTION_ID
+      type: string
     
   workspaces:
     - name: pipeline-ws
