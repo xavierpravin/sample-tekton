@@ -18,6 +18,9 @@ spec:
       type: string
     - name: subdirectory
       type: string 
+    - name: azure_spn_name
+      type: string   
+      
       
     
   steps:
