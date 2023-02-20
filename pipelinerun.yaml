@@ -10,7 +10,7 @@ spec:
   params:
 
     - name: github_url
-      value: "NA"
+      value: "https://github.com/xavierpravin/terraform-sample.git"
     
     - name: tf_action
       value: plan
