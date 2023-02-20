@@ -14,7 +14,11 @@ spec:
     - name: tf_action
       value: plan
     - name: SUBSCRIPTION_ID
-      type: string
+      value: NA
+    - name: subdirectory
+      value: NA
+    - name: azure_spn_name
+      value: NA
     
   workspaces:
     - name: pipeline-ws
