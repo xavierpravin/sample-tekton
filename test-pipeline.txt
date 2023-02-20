@@ -1,0 +1,28 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: test-pipeline
+  namespace: test-pipelines
+spec:
+  workspaces:
+    - name: pipeline-ws
+    - name: sonar-settings
+  params:
+    - name: github_url
+      type: string
+    - name: tf_action
+      type: string
+  tasks:
+  - name: terraform-primary
+    taskRef:
+      name: ingressterraform-primary
+    params:
+      - name: github_url
+        value: $(params.github_url)
+      - name: tf_action
+        value: $(params.tf_action)
+      
+    workspaces:
+      - name: task-ws
+        workspace: pipeline-ws
+      

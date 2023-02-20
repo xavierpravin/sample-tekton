@@ -1,0 +1,59 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: test-task
+  namespace: test-pipeline
+spec:
+  workspaces:
+    - name: task-ws
+      description: Workspace for sharing files between terraform tasks
+    
+
+  params:
+    - name: env
+      type: string
+    
+  steps:
+    - name: test-job-clone
+      image: alpine/git:v2.26.2
+      command: ["/bin/sh"]
+      args:
+        - -c
+        - |
+            echo "=====Cloning GIT Repo====="
+            rm -rf /workspace/task-ws
+            git clone $(params.github_url) $(workspaces.task-ws.path)
+            echo "Successfully Done the cloning"
+
+  - name: ingress-terraform-apply
+      image: docker.io/hashicorp/terraform:light # The image which we had built in the previous step
+      env:
+      - name: TENANT_ID
+        valueFrom:
+          secretKeyRef:
+            name: $(params.azure_spn_name)
+            key: TENANT_ID
+      - name: CLIENT_ID
+        valueFrom:
+          secretKeyRef:
+            name: $(params.azure_spn_name)
+            key: CLIENT_ID
+      - name: CLIENT_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: $(params.azure_spn_name)
+            key: CLIENT_SECRET
+      
+      script: |
+        #!/usr/bin/env sh
+        terraform -version
+        export ARM_SUBSCRIPTION_ID=$(params.SUBSCRIPTION_ID)
+        export ARM_TENANT_ID=$TENANT_ID
+        export ARM_CLIENT_ID=$CLIENT_ID
+        export ARM_CLIENT_SECRET=$CLIENT_SECRET
+
+        
+        cd $(workspaces.task-ws.path)/$(params.subdirectory) 
+                
+        terraform init 
+        terraform plan $(params.tf_action)

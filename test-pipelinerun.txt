@@ -1,0 +1,21 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: pipelinerun-demo
+  namespace: test-pipelines
+spec:
+  pipelineRef:
+    name: test-pipeline
+
+  params:
+
+    - name: github_url
+      value: "NA"
+    
+    - name: tf_action
+      value: plan
+    
+  workspaces:
+    - name: pipeline-ws
+      emptyDir: {}
+    
