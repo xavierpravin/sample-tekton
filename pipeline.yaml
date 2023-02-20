@@ -12,6 +12,9 @@ spec:
       type: string
     - name: tf_action
       type: string
+    - name: SUBSCRIPTION_ID
+      type: string  
+      
   tasks:
   - name: terraform-primary
     taskRef:
@@ -21,7 +24,8 @@ spec:
         value: $(params.github_url)
       - name: tf_action
         value: $(params.tf_action)
-      
+      - name: SUBSCRIPTION_ID
+        value: $(params.SUBSCRIPTION_ID)
     workspaces:
       - name: task-ws
         workspace: pipeline-ws
