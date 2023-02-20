@@ -10,7 +10,11 @@ spec:
     
 
   params:
-    - name: env
+    - name: github_url
+      type: string
+    - name: tf_action
+      type: string
+    - name: SUBSCRIPTION_ID
       type: string
     
   steps:
