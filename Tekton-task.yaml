@@ -66,4 +66,4 @@ spec:
         cd $(workspaces.task-ws.path)/$(params.subdirectory) 
                 
         terraform init 
-        terraform plan $(params.tf_action)
+        terraform $(params.tf_action)
